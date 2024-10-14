@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #474b48;
+}
+
+.container {
+    max-width: 95%; /* Increased width to accommodate the three quadrants */
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.header {
+    height: 10%; /* Header takes up 10% of the height */
+    text-align: center;
+}
+
+.header h1 {
+    color: #333;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.form-container input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60%;
+    margin-right: 10px;
+}
+
+.form-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #218838;
+}
+
+.content-container {
+    display: flex;
+    height: 90%; /* Remaining height for the quadrants */
+    margin-top: 20px;
+}
+
+.left-quadrant {
+    width: 25%; /* Left quadrant takes 40% of the width */
+    padding: 10px;
+    border-right: 1px solid #ccc; /* Divider between quadrants */
+}
+
+.right-quadrant {
+    width: 60%; /* Right quadrant takes 60% of the width */
+    padding: 10px;
+}
+
+.result {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+    text-align: left; /* Left-align the text for better readability */
+}
+
+.toggle-container {
+    display: none; /* Initially hidden */
+    margin-top: 20px;
+}
+
+.toggle {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+    font-size: 18px;
+    color: #28a745; /* Same color as the button */
+    margin-top: 10px;
+}
+
+.toggle:after {
+    content: '\25B6'; /* Triangle pointing right */
+    font-size: 14px;
+    margin-left: 5px;
+    transition: transform 0.3s; /* Smooth transition for the arrow */
+}
+
+.toggle.open:after {
+    transform: rotate(90deg); /* Rotate triangle when open */
+}
+
+
+.table {
+    width: 100%;
+    margin-top: 20px; /* Space above the table */
+}
+
+.table th, .table td {
+    text-align: left; /* Align text to the left */
+}
+
+.table th {
+    background-color: #f8f9fa; /* Light gray background for header */
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #dee2e6; /* Border for table cells */
+}
+
+/* Add some initial styles for the toggle container to be hidden */
+#toggleContainer {
+    display: none; /* Initially hidden */
+}
+
+#jsonData {
+    background-color: #f5f5f5; /* Light gray background for the JSON */
+    padding: 10px; /* Add some padding */
+    border-radius: 5px; /* Rounded corners */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    white-space: pre-wrap; /* Ensure long lines wrap */
+    margin-top: 10px; /* Space above JSON */
+}
+
+/* Additional hover effects for toggle */
+.toggle:hover {
+    text-decoration: underline; /* Underline on hover */
+}
