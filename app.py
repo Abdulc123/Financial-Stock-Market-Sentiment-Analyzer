@@ -20,10 +20,15 @@ def fetch_stock_data(ticker, time_period, time_interval):
         print(f"Error fetching data for {ticker}: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on error
 
-# Route for the home page
+# Route for the home page/ ticker data page 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('stock_data.html')
+
+# Route for the stock report page
+@app.route('/daily_stock_report')
+def daily_stock_report():
+    return render_template('daily_stock_report.html')
 
 # Route to handle stock analysis and fetch data using Yahoo Finance
 @app.route('/analyze_stock', methods=['POST'])

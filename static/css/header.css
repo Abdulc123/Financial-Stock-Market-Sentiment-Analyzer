@@ -1,0 +1,40 @@
+/* Reset some default styles */
+body, h1, ul {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex; /* Use flexbox to align items horizontally */
+    justify-content: space-between; /* Space out the elements */
+    align-items: center; /* Center the items vertically */
+    background-color: #cccccc; /* Light background color */
+    padding: 10px 20px; /* Padding around the header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+
+}
+
+.header h1 {
+    font-size: 24px; /* Font size for the header title */
+    color: #333; /* Color for the title */
+}
+
+nav ul {
+    list-style: none; /* Remove bullet points from list */
+    display: flex; /* Use flexbox for the list items */
+}
+
+nav ul li {
+    margin-left: 20px; /* Space between the links */
+}
+
+nav ul li a {
+    text-decoration: underline; /* Remove underline from links */
+    color: #000000; /* Link color */
+    font-weight: bold; /* Make the links bold */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+nav ul li a:hover {
+    color: #0056b3; /* Change color on hover */
+}

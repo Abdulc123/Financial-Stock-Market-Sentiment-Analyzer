@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Sentiment Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/daily__stock_report.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <script src="{{ url_for('static', filename='js/daily_stock_report.js') }}" defer></script>
+</head>
+<body>
+    <header class="header">
+        <h1>Stock Market Sentiment Analyzer</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Stock Data</a></li>
+                <li><a href="{{ url_for('daily_stock_report') }}">Daily Stock Sentiment Report</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        
+        <form id="stockForm" class="form-container">
+            <input type="text" name="ticker" id="ticker" placeholder="Enter stock ticker" required>
+            <button type="submit">Analyze</button>
+        </form>
+
+        <div class="content-container">
+            <div class="left-quadrant">
+                <div id="resultData" class="result"></div> <!-- Table for parameters -->
+                <div class="toggle" id="toggleResult" style="display: none;">Show JSON Results</div> <!-- Initially hidden -->
+                <div id="toggleContainer">
+                    <pre id="jsonData" style="display: none;"></pre> <!-- JSON/cleaned up data initially hidden -->
+                </div>
+            </div>
+            
+            <div class="right-quadrant">
+                <h2>Analysis Placeholder</h2>
+                <p>This section will contain the actual analysis.</p>
+                <div class="chart-container">
+                    <canvas id="stockChart"></canvas> <!-- Chart.js Canvas -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
