@@ -87,15 +87,36 @@ function fetchStockData(ticker) {
         },
         body: JSON.stringify({ ticker })
     })
-    .then(response => response.json())
+    .then(response => {
+        // Check if the response is okay, if not, throw an error
+        if (!response.ok) {
+            throw new Error(`Error: Failed to fetch stock data for ${ticker}. Please check the ticker symbol.`);
+        }
+        return response.json();
+    })
     .then(data => {
         hideLoading(); // Hide loading spinner after the data is fetched
-        displayStockData(data); // Display the stock data on the page
+        
+        // Check if data contains valid stock info
+        if (data.error || Object.keys(data).length === 0) {
+            // If no valid data, display an error message
+            displayErrorMessage(`No data found for ticker: ${ticker}. Please enter a valid ticker symbol.`);
+        } else {
+            // Otherwise, display the stock data on the page
+            displayStockData(data);
+        }
     })
     .catch(error => {
         hideLoading(); // Hide loading spinner after the data is fetched
         console.error('Error fetching stock data:', error);
+        displayErrorMessage(`Error fetching stock data: ${error.message}`);
     });
+}
+
+// Display error message to the user
+function displayErrorMessage(message) {
+    const resultContainer = document.getElementById('resultData');
+    resultContainer.innerHTML = `<div class="error-message">${message}</div>`;
 }
 
 // Display the stock data in a table
