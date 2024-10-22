@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, jsonify  
+from flask import Flask, render_template, request, jsonify
+from db_setup import save_stock_data_to_db
 import yfinance as yf # Yahoo Finance
 import pandas as pd # Pandas
+import sqlite3 # SQLite
+from datetime import datetime 
+import json
 
 
 app = Flask(__name__)
-
 
 def fetch_stock_data(ticker, time_period, time_interval):
     try:
@@ -20,27 +23,7 @@ def fetch_stock_data(ticker, time_period, time_interval):
         print(f"Error fetching data for {ticker}: {e}")
         return pd.DataFrame()  # Return an empty DataFrame on error
 
-# Route for the home page/ ticker data page 
-@app.route('/')
-def home():
-    return render_template('stock_data.html')
-
-# Route for the stock report page
-@app.route('/daily_stock_report')
-def daily_stock_report():
-    return render_template('daily_stock_report.html')
-
-# Route to handle stock analysis and fetch data using Yahoo Finance
-@app.route('/analyze_stock', methods=['POST'])
-def analyze_stock():
-    data = request.json
-    ticker = data.get("ticker")
-
-    # Fetch stock data (this is just a placeholder for your data fetching logic)
-    time_period = '6mo'
-    time_interval = '1wk'
-    stock_history = fetch_stock_data(ticker, time_period, time_interval)  # Your function to fetch data
-
+def generate_stock_history_dict(ticker, time_period, time_interval, stock_history):
     # Create Ticker for Specific Stock
     stock = yf.Ticker(ticker)
     
@@ -100,18 +83,45 @@ def analyze_stock():
             "dates": stock_history.index.strftime('%Y-%m-%d').tolist(),  # Format dates
             "prices": stock_history['Close'].tolist(),  # Historical closing prices
             "dates": stock_history.index.strftime('%Y-%m-%d').tolist(),  # Converts the dates to strings
-            "prices": stock_history['Close'].tolist() # Gets the closing prices
-
-        # Add other response data as needed
+            "prices": stock_history['Close'].tolist(), # Gets the closing prices
+            "date_fetched": datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Capture the current time
         }
+
+        return stock_history_data
 
     except Exception as e:
         print(f"Error in analyze_stock: {e}")  # Print the error for debugging
         return jsonify({"error": str(e)}), 500  
 
-    print("Stock History Data", stock_history_data)
+# Route for the home page/ ticker data page 
+@app.route('/')
+def home():
+    return render_template('stock_data.html')
+
+# Route to handle stock analysis and fetch data using Yahoo Finance
+@app.route('/analyze_stock', methods=['POST'])
+def analyze_stock():
+    data = request.json
+    ticker = data.get("ticker")
+
+    # Fetch stock data (this is just a placeholder for your data fetching logic)
+    time_period = '2y'
+    time_interval = '1wk'
+    stock_history = fetch_stock_data(ticker, time_period, time_interval)  # Your function to fetch data
+
+    # Creates the stock_history response data
+    stock_history_data = generate_stock_history_dict(ticker, time_period, time_interval, stock_history)
+
+    # Saving the stock history data to the stock databse
+    save_stock_data_to_db(stock_history_data)
+
+    #print("Stock History Data", stock_history_data)
     return jsonify(stock_history_data), 200
 
+# Route for the stock report page
+@app.route('/daily_stock_report')
+def daily_stock_report():
+    return render_template('daily_stock_report.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,8 +1,8 @@
 .tetrominos {
     position: absolute;
-    top: 23%;
-    left: 50%;
-    transform: translate(-112px, -96px);
+    top: 39%;  /* Position it 50% from the top */
+    left: 41%; /* Position it 50% from the left */
+    transform: translate(-50%, -50%); /* Center it by shifting it half its width and height */
   }
   
   .tetromino {

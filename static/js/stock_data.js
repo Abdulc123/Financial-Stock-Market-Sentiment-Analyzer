@@ -8,6 +8,31 @@ function showLoading() {
     contentContainer.style.display = 'none'; // Hide content from the flow
 }
 
+function showJsonData(data) {
+    // Display the JSON data in the toggle container but keep it hidden initially
+    const jsonData = JSON.stringify(data, null, 2);
+    const jsonDataElement = document.getElementById('jsonData');
+    jsonDataElement.textContent = jsonData;
+    jsonDataElement.style.display = 'none'; // Initially hide the JSON data
+
+    // Show the toggle button now that we have data
+    const toggleResult = document.getElementById('toggleResult');
+    toggleResult.style.display = 'block'; // Show the button
+    toggleResult.textContent = 'Show JSON Results'; // Set initial text
+
+    // Add event listener to toggle button
+    toggleResult.addEventListener('click', function() {
+        // Toggle the display of the JSON data
+        if (jsonDataElement.style.display === 'none') {
+            jsonDataElement.style.display = 'block'; // Show JSON data
+            toggleResult.textContent = 'Hide JSON Results'; // Change button text
+        } else {
+            jsonDataElement.style.display = 'none'; // Hide JSON data
+            toggleResult.textContent = 'Show JSON Results'; // Change button text
+        }
+    });
+}
+
 // Hide the loading spinner and fade in the content container
 function hideLoading() {
     document.getElementById('loading').style.display = 'none';
@@ -122,18 +147,18 @@ function displayErrorMessage(message) {
 // Display the stock data in a table
 function displayStockData(data) {
     const parameters = [
-        { name: "Ticker", value: data.ticker },
-        { name: "Current Price", value: `$${data.current_price.toFixed(2)}` },
-        { name: "Open Price", value: `$${data.open_price.toFixed(2)}` },
-        { name: "High Price", value: `$${data.high_price.toFixed(2)}` },
-        { name: "Low Price", value: `$${data.low_price.toFixed(2)}` },
-        { name: "Volume", value: data.volume.toLocaleString() },
-        { name: "Market Cap", value: `$${data.market_cap.toLocaleString()}` },
-        { name: "P/E Ratio", value: data.pe_ratio.toFixed(2) },
-        { name: "EPS", value: `$${data.eps.toFixed(2)}` },
-        { name: "Dividend Yield", value: `${data.dividend_yield.toFixed(2)}%` },
-        { name: "Year High", value: `$${data.year_high.toFixed(2)}` },
-        { name: "Year Low", value: `$${data.year_low.toFixed(2)}` },
+        { name: "Ticker", value: data.ticker || 'N/A' },
+        { name: "Current Price", value: data.current_price ? `$${data.current_price.toFixed(2)}` : 'N/A' },
+        { name: "Open Price", value: data.open_price ? `$${data.open_price.toFixed(2)}` : 'N/A' },
+        { name: "High Price", value: data.high_price ? `$${data.high_price.toFixed(2)}` : 'N/A' },
+        { name: "Low Price", value: data.low_price ? `$${data.low_price.toFixed(2)}` : 'N/A' },
+        { name: "Volume", value: data.volume ? data.volume.toLocaleString() : 'N/A' },
+        { name: "Market Cap", value: data.market_cap ? `$${data.market_cap.toLocaleString()}` : 'N/A' },
+        { name: "P/E Ratio", value: data.pe_ratio ? data.pe_ratio.toFixed(2) : 'N/A' },
+        { name: "EPS", value: data.eps ? `$${data.eps.toFixed(2)}` : 'N/A' },
+        { name: "Dividend Yield", value: data.dividend_yield ? `${data.dividend_yield.toFixed(2)}%` : 'N/A' },
+        { name: "2 Year High", value: data.year_high ? `$${data.year_high.toFixed(2)}` : 'N/A' },
+        { name: "2 Year Low", value: data.year_low ? `$${data.year_low.toFixed(2)}` : 'N/A' },
     ];
 
     // Generate table rows dynamically
@@ -159,9 +184,8 @@ function displayStockData(data) {
     </table>
     `;
 
-    // Display the JSON data in the toggle container but keep it hidden initially
-    const jsonData = JSON.stringify(data, null, 2);
-    document.getElementById('jsonData').textContent = jsonData;
+    showJsonData(data)
+    
 }
 
 // Initialize the stock dictionary and set up event listeners

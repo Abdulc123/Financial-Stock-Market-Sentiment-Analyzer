@@ -21,60 +21,84 @@ body {
     color: #333;
 }
 
-/* Form styling */
-.form-container {
+/* Container for the search bar and autocomplete list */
+.search-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    position: relative;  /* Relative position to position autocomplete list correctly */
+    align-items: center;
+    flex-direction: column;
+    width: 100%; /* Full width of the window */
+    position: relative; /* This allows autocomplete to stay within the container */
 }
 
+/* Style the form container */
+.form-container {
+    display: flex; /* Align the search bar and button inline */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Control the width of the search bar and button */
+    position: relative; /* Position relative to the container */
+}
+
+/* Style the search bar */
 .form-container input[type="text"] {
+    width: 80%; /* Make the input field take up 80% of the form container */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 60%;
-    margin-right: 10px;
-    z-index: 1;  /* Ensure input is above other elements */
-    box-sizing: border-box;  /* Ensure padding is included in width calculation */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
 
+/* Style the button */
 .form-container button {
-    padding: 10px 20px;
+    width: 18%; /* Button takes up the remaining width */
+    padding: 10px;
     border: none;
     border-radius: 4px;
     background-color: #28a745;
     color: white;
     cursor: pointer;
+    margin-left: 10px; /* Adds spacing between the input and the button */
 }
 
 .form-container button:hover {
     background-color: #218838;
 }
 
-/* Styling the autocomplete dropdown */
+/* Autocomplete list styling */
 .autocomplete-items {
-    position: absolute;  /* Positioned below the search bar */
-    top: 100%;  /* Move directly below the input field */
-    left: 18%;
-    width: 60%;  /* Match the width of the input field */
-    border: 1px solid #d4d4d4;
-    z-index: 99;  /* Ensure it's above other content */
-    max-height: 200px;  /* Optional: limit height */
-    overflow-y: auto;  /* Add scrollbar if needed */
+    position: absolute;
+    top: 100%; /* Place the list just below the input field */
+    left: 0; /* Align the list with the search bar */
+    width: 100%; /* Ensure the autocomplete list matches the input field width */
     background-color: white;
-    box-sizing: border-box; /* Ensure padding and borders don’t affect width */
+    border: 1px solid #ccc;
+    max-height: 200px; /* Limit the height of the list */
+    overflow-y: auto; /* Scroll if there are too many items */
+    z-index: 10; /* Ensure it's on top of other elements */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
+/* Individual autocomplete item */
 .autocomplete-item {
     padding: 10px;
     cursor: pointer;
-    background-color: #fff; /* White background */
-    border-bottom: 1px solid #d4d4d4;  /* Light grey bottom border */
+    border-bottom: 1px solid #ccc;
 }
 
+/* Highlighted autocomplete item on hover */
 .autocomplete-item:hover {
-    background-color: #f1f1f1; /* Highlight background on hover */
+    background-color: #f0f0f0;
+}
+
+/* Styling for no results */
+.no-results {
+    padding: 10px;
+    color: #999;
+    text-align: center;
 }
 
 .autocomplete-item strong {
@@ -86,7 +110,6 @@ body {
     opacity: 0; /* Initially hidden */
     transition: opacity 1s ease; /* Smooth fade-in transition */
 }
-
 
 .left-quadrant {
     width: 25%; /* Left quadrant takes 25% of the width */
@@ -162,23 +185,4 @@ body {
 /* Additional hover effects for toggle */
 .toggle:hover {
     text-decoration: underline; /* Underline on hover */
-}
-
-/* Add this CSS for the loading spinner */
-.spinner {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    position: absolute;
-    top: 14%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }

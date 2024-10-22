@@ -22,14 +22,14 @@
     </header>
 
     <div class="container">
-        
-        <form id="stockForm" class="form-container">
-            <!-- Autocomplete Search Bar --> 
-            <input type="text" name="ticker" id="ticker" placeholder="Enter Stock Ticker or Name" required autocomplete="off">
-            <ul id="autocomplete-list" class="autocomplete-items"> </ul> <!-- Creates Dynamic List of suggesions-->
-            <button type="submit">Analyze</button>
-        </form>
-
+        <div class="search-container"> 
+            <form id="stockForm" class="form-container">
+                <!-- Autocomplete Search Bar --> 
+                <input type="text" name="ticker" id="ticker" placeholder="Enter Stock Ticker or Name" required autocomplete="off">
+                <button type="submit">Analyze</button>
+                <ul id="autocomplete-list" class="autocomplete-items"> </ul> <!-- Creates Dynamic List of suggesions-->
+            </form>
+        </div>
         <!-- Add a spinner element -->
         <div class='tetrominos' id="loading" style="display: none;"> <!-- Hidden by default -->
             <div class='tetromino box1'></div>
@@ -42,7 +42,7 @@
         <div class="content-container" style="display: none;">
             <div class="left-quadrant">
                 <div id="resultData" class="result"></div> <!-- Table for parameters -->
-                <div class="toggle" id="toggleResult" style="display: none;">Show JSON Results</div> <!-- Initially hidden -->
+                <div class="toggle" id="toggleResult" style="display: none;">Show JSON Results</div> <!-- Toggle Button Initially hidden -->
                 <div id="toggleContainer">
                     <pre id="jsonData" style="display: none;"></pre> <!-- JSON/cleaned up data initially hidden -->
                 </div>
