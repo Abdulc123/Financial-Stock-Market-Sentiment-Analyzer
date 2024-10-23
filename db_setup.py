@@ -1,7 +1,14 @@
-from config import AWSHost, AWSPassword
 import sqlite3
 import mysql.connector
 import json
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from the .env file
+load_dotenv()
+# Access the environment variables
+AWSHost = os.getenv('AWSHost')
+AWSPassword = os.getenv('AWSPassword')
 
 
 def get_my_sql_connection():

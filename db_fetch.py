@@ -1,5 +1,12 @@
 import mysql.connector
-from config import AWSHost, AWSPassword  # Import your host and password from config
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from the .env file
+load_dotenv()
+# Access the environment variables
+AWSHost = os.getenv('AWSHost')
+AWSPassword = os.getenv('AWSPassword')
 
 def grab_stock_data_from_db():
     try:
