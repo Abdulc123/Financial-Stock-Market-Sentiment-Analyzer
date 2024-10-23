@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from db_setup import save_stock_data_to_db
+from databases.db_setup import save_stock_data_to_db
 import yfinance as yf # Yahoo Finance
 import pandas as pd # Pandas
 import sqlite3 # SQLite
