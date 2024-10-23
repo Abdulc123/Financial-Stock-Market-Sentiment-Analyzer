@@ -112,8 +112,13 @@ def analyze_stock():
     # Creates the stock_history response data
     stock_history_data = generate_stock_history_dict(ticker, time_period, time_interval, stock_history)
 
-    # Saving the stock history data to the stock databse
-    save_stock_data_to_db(stock_history_data)
+    try:
+        # Saving the stock history data to the stock database
+        save_stock_data_to_db(stock_history_data)
+        print("Stock data saved successfully.")
+    except Exception as e:
+        # If it fails, print the error and continue
+        print(f"Failed to save stock data: {e}")
 
     #print("Stock History Data", stock_history_data)
     return jsonify(stock_history_data), 200

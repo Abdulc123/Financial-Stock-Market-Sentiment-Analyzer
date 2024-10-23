@@ -12,14 +12,19 @@ AWSPassword = os.getenv('AWSPassword')
 
 
 def get_my_sql_connection():
-    # conn = connection
-    conn = mysql.connector.connect(
-        host= AWSHost,
-        user='admin',
-        password= AWSPassword,
-        database='stock4sight_data'
-    )
-    return conn
+    try:
+        # conn = connection
+        conn = mysql.connector.connect(
+            host= AWSHost,
+            user='admin',
+            password= AWSPassword,
+            database='stock4sight_data'
+        )
+        print("Successfully connected to the database!")
+        return conn
+    except mysql.connector.Error as err:
+        print(f"Error connecting to the database: {err}")
+        return None
 
 # Creates the stock database using SQLite3
 def create_stock_db(): 
